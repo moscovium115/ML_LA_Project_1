@@ -1,18 +1,27 @@
-# This is a sample Python script.
+import numpy as np
+import scipy as sp
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# pd.set_option('display.max_rows', 500)
+# pd.set_option('display.max_columns', 500)
+
+def Datamatrix_Y(str):
+    """Loads the datamatrix and y vector from csv file"""
+    csv_data = pd.read_csv('data.csv')
+    X_matrix = csv_data.iloc[:, :-1].values
+    y_vector=csv_data.iloc[:,-1].values
+    X_matrix=np.array(X_matrix)
+    y_vector=np.array(y_vector)
+    return X_matrix,y_vector
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+X_mat,y_vec=Datamatrix_Y('data.csv')
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+print(X_mat)
+print(X_mat.shape)
 
+#Calculate sparsity
+sparsity=len(X_mat[X_mat==0])/len(X_mat)
+print(f"{round(sparsity,2)} % of the entries are zero's")
 
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
